@@ -1,0 +1,153 @@
+ChuckNorrisJokes:
+
+    canvas.before:
+        Color:
+            rgba: self.color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Card:
+        id: card
+        title: 'Chuck Norris Facts'
+        text: root.joke
+        icon_url: root.icon_url
+        pos_hint: {'center_x': .5, 'top': .9}
+
+    ContainedFlatButton:
+        id: btn1
+        text: 'Download new Joke'
+        pos_hint: {'center_x': .3, 'y': .1}
+        on_press:
+            root.get_new_joke()
+
+    OutlinedFlatButton:
+        id: btn2
+        text: 'Reset'
+        pos_hint: {'center_x': .7, 'y': .1}
+        on_press:
+            root.reset_joke()
+
+<ContainedFlatButton>:
+    text: 'I am a button'
+
+    size_hint: None, None
+    minimum_height: dp(36)
+    minimum_width: dp(64)
+    padding_horizontal: dp(16)
+    padding_vertical: dp(8)
+
+    width: max(root.minimum_width, lbl.texture_size[0] + 2 * root.padding_horizontal)
+    height: max(root.minimum_height, lbl.texture_size[1] + 2 * root.padding_vertical)
+
+    canvas.before:
+        Color:
+            rgba: self.color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: 6,6,6,6
+    Label:
+        id: lbl
+        text: root.text
+        pos: root.pos
+
+<OutlinedFlatButton>:
+    text: 'I am a button'
+
+    size_hint: None, None
+    minimum_height: dp(36)
+    minimum_width: dp(64)
+    padding_horizontal: dp(16)
+    padding_vertical: dp(8)
+
+    width: max(root.minimum_width, lbl.texture_size[0] + 2 * root.padding_horizontal)
+    height: max(root.minimum_height, lbl.texture_size[1] + 2 * root.padding_vertical)
+
+    canvas.before:
+        Color:
+            rgba: self.color
+        Line:
+            width: dp(1)
+            rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], 6)
+    Label:
+        id: lbl
+        text: root.text
+        color: root.color
+        pos: root.pos
+
+<Card>:
+    title: 'I am a title'
+    text: 'I am a text'
+    icon_url: ''
+
+    padding: dp(6)
+    size_hint: None, None
+    width: dp(400)
+    height: box.height + lbl.height + root.padding[0] * 2
+
+    orientation: 'vertical'
+
+    canvas.before:
+        Color:
+            rgba: self.outline_color
+        Line:
+            width: dp(1)
+            rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], 6)
+
+    BoxLayout:
+        id: box
+        orientation: 'horizontal'
+        size_hint: 1,None
+        height: dp(80)
+        #padding: dp(6)
+
+        AsyncImage:
+            size_hint: None, 1
+            width: dp(80)
+            allow_stretch: True
+            keep_ratio: False
+            source: root.icon_url
+
+            #canvas.before:
+                #Color:
+                    #rgba: 0,0,1,1
+                #RoundedRectangle:
+                    #pos: self.pos
+                    #size: self.size
+                    #radius: 6,6,6,6
+
+        Label:
+            text: root.title
+            color: root.color
+            halign: 'left'
+            valign: 'top'
+            font_size: 25
+            size_hint: 1, 1
+            size: self.texture_size
+            text_size: self.width, None
+
+            #canvas.before:
+                #Color:
+                    #rgba: 1,0,0,1
+                #RoundedRectangle:
+                    #pos: self.pos
+                    #size: self.size
+                    #radius: 6,6,6,6
+
+    Label:
+        id: lbl
+        text:root.text
+        color: root.color
+        halign: 'left'
+        valign: 'top'
+        size_hint: 1, None
+        size: self.texture_size
+        text_size: self.width, None
+
+        #canvas.before:
+            #Color:
+                #rgba: 0,1,0,1
+            #RoundedRectangle:
+                #pos: self.pos
+                #size: self.size
+                #radius: 6,6,6,6
